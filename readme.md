@@ -212,6 +212,12 @@ PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
 FIREBASE_CONFIG=your_firebase_config
+
+
+# firebase environment varialbles
+FIREBASE_PROJECT_ID = your_firebase_project_id
+FIREBASE_CLIENT_EMAIL = your_firebase_client_email
+FIREBASE_PRIVATE_KEY = your firebase_private_key
 ```
 
 Run backend:
@@ -234,7 +240,7 @@ npm run dev
 
 ```
 VITE_FIREBASE_APIKEY=your_key_here
-VITE_BACKEND_URL=http://localhost:3000
+VITE_BACKEND_URL=your_backend_url
 ```
 
 ---
@@ -263,7 +269,7 @@ This project demonstrates:
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Author - Suraj Kumar
 
 Built independently as a hands-on full-stack learning project, evolving feature by feature from basic CRUD to a real-time social media system.
 
