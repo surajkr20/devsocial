@@ -142,7 +142,7 @@ const FeedPost = ({ post }) => {
                   <img
                     src={data?.image}
                     alt="post"
-                    className="w-full h-full object-contain group-hover:scale-105 transition duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                   />
                 </div>
 

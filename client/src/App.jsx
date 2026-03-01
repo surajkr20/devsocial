@@ -10,6 +10,7 @@ import { AuthContext } from "./context/AuthProvider";
 import UpdateProfilePanel from "./pages/UpdateProfilePanel";
 import UserListPopup from "./components/UserListPopup";
 import UserDashboard from "./pages/UserDashboard";
+import PrivateRoute from "./privateRoute";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -21,26 +22,51 @@ const App = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route
           path="/my-dashboard"
-          element={user ? <MyDashboard /> : <SignIn />}
+          element={
+            <PrivateRoute>
+              <MyDashboard />
+            </PrivateRoute>
+          }
         />
         <Route
           path="/user-dashboard/:id"
-          element={user && <UserDashboard />}
+          element={
+            <PrivateRoute>
+              <UserDashboard />
+            </PrivateRoute>
+          }
         />
         <Route
           path="/update-profile"
-          element={user && <UpdateProfilePanel />}
+          element={
+            <PrivateRoute>
+              <UpdateProfilePanel />
+            </PrivateRoute>
+          }
         />
         <Route
           path="/all-users"
-          element={user && <UserListPopup />}
+          element={
+            user && <UserListPopup />
+          }
         />
-        <Route path="/" element={<Home />} />
-        <Route path="/create" element={user && <CreatePost />} />
+        <Route
+          path="/create"
+          element={
+            <PrivateRoute>
+              <CreatePost />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/update/:id"
-          element={user ? <UpdatePost /> : <SignIn />}
+          element={
+            <PrivateRoute>
+              <UpdatePost />
+            </PrivateRoute>
+          }
         />
+        <Route path="/" element={<Home />} />
       </Routes>
     </>
   );

@@ -27,7 +27,7 @@ const CreatePost = () => {
       formData.append("caption", caption);
       await createPost(formData);
       toast.success("post created successfully!");
-      navigate("/dashboard");
+      navigate("/my-dashboard");
     } catch (error) {
       console.log(`handle form error from createPost: ${error.message}`);
       toast.error("create post error");
