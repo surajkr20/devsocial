@@ -45,7 +45,7 @@ const UpdateProfilePanel = () => {
     }
 
     const success = await updateUserProfile(formData);
-    navigate("/dashboard");
+    navigate("/my-dashboard");
 
     if (success) {
       setPassword("");
