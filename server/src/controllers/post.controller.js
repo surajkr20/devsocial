@@ -42,14 +42,22 @@ export const create = async (req, res) => {
 };
 
 export const read = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = 4;
   try {
+    const totalDocuments = await PostModel.countDocuments();
+    const count = Math.ceil(totalDocuments / limit);
+
     const post = await PostModel.find()
       .populate("user", "name email image")
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
 
     return res.status(200).json({
       message: "All post fethced successfully",
       post,
+      count
     });
   } catch (error) {
     return res

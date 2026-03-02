@@ -9,10 +9,11 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import socket from "../socket";
 import axiosInstance from "../utils/axiosInstance";
+import PagePagination from "./PagePagination";
 
 const FeedPost = ({ post }) => {
   const navigate = useNavigate();
-  const { loading, deletePost, setAllPost } = useContext(PostContext);
+  const { loading, deletePost, setAllPost, setPage, count } = useContext(PostContext);
   const { user } = useContext(AuthContext);
 
   // handle like count through socket(real-time)
@@ -80,7 +81,12 @@ const FeedPost = ({ post }) => {
               >
                 {/* Post owner information */}
                 <div className="flex items-center justify-between p-4 border-b border-white/10">
-                  <div className={`flex items-center gap-3 cursor-pointer`} onClick={()=>navigate(`/user-dashboard/${data?.user?._id}`)}>
+                  <div
+                    className={`flex items-center gap-3 cursor-pointer`}
+                    onClick={() =>
+                      navigate(`/user-dashboard/${data?.user?._id}`)
+                    }
+                  >
                     <img
                       src={data.user?.image}
                       alt="user-dp"
@@ -167,6 +173,10 @@ const FeedPost = ({ post }) => {
           </h2>
         </div>
       )}
+
+      <div className="w-full mt-3 bg-linear-to-b from-[#111] to-[#0d0d0d] py-3">
+        <PagePagination setPage={setPage} count={count}/>
+      </div>
     </div>
   );
 };

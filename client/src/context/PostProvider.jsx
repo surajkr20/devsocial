@@ -13,12 +13,15 @@ const PostProvider = ({ children }) => {
   const [currentPost, setCurrentPost] = useState(null); // for manage post update(current post id)
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState('');
 
   const fetchPost = async () => {
     try {
       setLoading(true);
-      const result = await axiosInstance.get(`/api/posts/read`);
+      const result = await axiosInstance.get(`/api/posts/read` + '?page=' + page);
       setAllPost(result?.data?.post);
+      setCount(result?.data?.count);
     } catch (error) {
       console.log("fetching post data error", error.message);
     } finally {
@@ -28,7 +31,7 @@ const PostProvider = ({ children }) => {
 
   useEffect(() => {
     fetchPost();
-  }, []);
+  }, [page]);
 
   const createPost = async (data) => {
     try {
@@ -108,7 +111,11 @@ const PostProvider = ({ children }) => {
           currentPostData,
           currentPost,
           deletePost,
-          setAllPost
+          setAllPost,
+          setPage,
+          page,
+          count,
+          setCount
         }}
       >
         {children}
