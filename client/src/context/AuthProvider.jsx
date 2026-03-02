@@ -37,12 +37,9 @@ const AuthProvider = ({ children }) => {
       setError(null);
 
       const result = await axiosInstance.get("/api/users/current");
-
-      if (result.data) {
-        setUser(result.data?.user);
-        setIsAuthenticated(true);
-        fetchUserPost(); // fetch posts only if user exists
-      }
+      setUser(result.data?.user);
+      setIsAuthenticated(true);
+      fetchUserPost(); // fetch posts only if user exists
     } catch (err) {
       setUser(null);
       setIsAuthenticated(false);

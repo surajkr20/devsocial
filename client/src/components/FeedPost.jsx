@@ -80,7 +80,7 @@ const FeedPost = ({ post }) => {
               >
                 {/* Post owner information */}
                 <div className="flex items-center justify-between p-4 border-b border-white/10">
-                  <div className="flex items-center gap-3">
+                  <div className={`flex items-center gap-3 cursor-pointer`} onClick={()=>navigate(`/user-dashboard/${data?.user?._id}`)}>
                     <img
                       src={data.user?.image}
                       alt="user-dp"
