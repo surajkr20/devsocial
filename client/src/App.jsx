@@ -10,7 +10,7 @@ import { AuthContext } from "./context/AuthProvider";
 import UpdateProfilePanel from "./pages/UpdateProfilePanel";
 import UserListPopup from "./components/UserListPopup";
 import UserDashboard from "./pages/UserDashboard";
-import PrivateRoute from "./privateRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   const { user } = useContext(AuthContext);
