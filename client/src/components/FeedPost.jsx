@@ -10,11 +10,13 @@ import { FaHeart } from "react-icons/fa";
 import socket from "../socket";
 import axiosInstance from "../utils/axiosInstance";
 import PagePagination from "./PagePagination";
+import { useLocation } from "react-router-dom";
 
 const FeedPost = ({ post }) => {
   const navigate = useNavigate();
   const { loading, deletePost, setAllPost, setPage, count } = useContext(PostContext);
   const { user } = useContext(AuthContext);
+  const location = useLocation();
 
   // handle like count through socket(real-time)
   useEffect(() => {
@@ -40,7 +42,7 @@ const FeedPost = ({ post }) => {
   };
 
   return (
-    <div className="w-full px-4 md:px-12 lg:px-20 py-8">
+    <div className="w-full px-4 md:px-12 lg:px-20 py-8 flex flex-col gap-12">
       {!loading ? (
         <div
           className="grid gap-8 
@@ -174,7 +176,7 @@ const FeedPost = ({ post }) => {
         </div>
       )}
 
-      <div className="w-full mt-3 bg-linear-to-b from-[#111] to-[#0d0d0d] py-3">
+      <div className={`w-full ${location.pathname === "/my-dashboard" ? "hidden" : "block"}`}>
         <PagePagination setPage={setPage} count={count}/>
       </div>
     </div>

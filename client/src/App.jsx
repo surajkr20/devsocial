@@ -11,6 +11,7 @@ import UpdateProfilePanel from "./pages/UpdateProfilePanel";
 import UserListPopup from "./components/UserListPopup";
 import UserDashboard from "./pages/UserDashboard";
 import PrivateRoute from "./PrivateRoute";
+import Footer from "./components/Footer";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -68,6 +69,7 @@ const App = () => {
         />
         <Route path="/" element={<Home />} />
       </Routes>
+      <Footer/>
     </>
   );
 };
