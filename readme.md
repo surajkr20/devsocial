@@ -274,3 +274,8 @@ This project demonstrates:
 Built independently as a hands-on full-stack learning project, evolving feature by feature from basic CRUD to a real-time social media system.
 
 ---
+
+## 👨‍💻 live link:-
+https://devsocial-orpin.vercel.app/
+
+---
