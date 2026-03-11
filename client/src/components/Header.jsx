@@ -1,14 +1,22 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  lazy,
+  Suspense,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import { toast } from "react-toastify";
 import { FaRegSquarePlus } from "react-icons/fa6";
 import { FaBars } from "react-icons/fa";
-import Sidebar from "./Sidebar";
+const Sidebar = lazy(() => import("../components/Sidebar"));
 import { CiBellOn } from "react-icons/ci";
-import NotificationPanel from "./NotificationsPanel";
+const NotificationPanel = lazy(() => import("./NotificationsPanel"));
 import { NotificationContext } from "../context/NotificationProvider";
 import socket from "../socket";
+import { ClipLoader } from "react-spinners";
 
 const Header = () => {
   const { user, signout } = useContext(AuthContext);
@@ -81,12 +89,14 @@ const Header = () => {
 
       {/* Sidebar popup */}
       {user && (
-        <Sidebar
-          sidebarPopUp={sidebarPopUp}
-          setSidebarPopUp={SetSidebarPopUp}
-          handleSignOut={handleSignOut}
-          setShowNotificationPopUp={setShowNotificationPopUp}
-        />
+        <Suspense fallback={<ClipLoader color="red" size={30} />}>
+          <Sidebar
+            sidebarPopUp={sidebarPopUp}
+            setSidebarPopUp={SetSidebarPopUp}
+            handleSignOut={handleSignOut}
+            setShowNotificationPopUp={setShowNotificationPopUp}
+          />
+        </Suspense>
       )}
 
       {/* Menu Links */}
@@ -110,10 +120,12 @@ const Header = () => {
 
       {/* notification popup */}
       {showNotificationPopUp && (
-        <NotificationPanel
-          notifications={notifications}
-          setShowNotificationPopUp={setShowNotificationPopUp}
-        />
+        <Suspense fallback={<ClipLoader color="red" size={30} />}>
+          <NotificationPanel
+            notifications={notifications}
+            setShowNotificationPopUp={setShowNotificationPopUp}
+          />
+        </Suspense>
       )}
 
       {/* Right Section */}

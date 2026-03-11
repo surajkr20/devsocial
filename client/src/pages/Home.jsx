@@ -1,20 +1,24 @@
-import React, { useContext } from "react";
+import React, { lazy, Suspense, useContext } from "react";
 import FeedPost from "../components/FeedPost";
-import Header from "../components/Header";
+const Header = lazy(() => import("../components/Header"));
 import { PostContext } from "../context/PostProvider";
 import { ClipLoader } from "react-spinners";
-import About from "../components/About";
-import Heading from "../components/Heading";
+const About = lazy(() => import("../components/About"));
+const Heading = lazy(() => import("../components/Heading"));
 
 const Home = () => {
   const { allPost, loading } = useContext(PostContext);
 
   return (
     <div className="w-full min-h-screen flex flex-col gap-2 bg-linear-to-b from-[#111] to-[#0d0d0d]">
-      <Header />
-      <Heading />
+      <Suspense fallback={null}>
+        <Header />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Heading />
+      </Suspense>
       {loading ? (
-        <div className="flex flex-col items-center justify-center gap-4 w-full min-h-screen bg-black text-white">
+        <div className="flex flex-col items-center justify-center gap-4 w-full h-[55vh] text-white">
           <h1 className="text-2xl font-bold text-red-500 tracking-wide">
             DevSocial
           </h1>
@@ -31,9 +35,13 @@ const Home = () => {
           </div>
         </div>
       ) : (
-        <FeedPost post={allPost} />
+        <Suspense fallback={<ClipLoader color="red" size={30} />}>
+          <FeedPost post={allPost} />
+        </Suspense>
       )}
-      <About />
+      <Suspense fallback={null}>
+        <About />
+      </Suspense>
     </div>
   );
 };

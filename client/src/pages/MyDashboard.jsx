@@ -7,7 +7,7 @@ import { PostContext } from "../context/PostProvider";
 import MyProfile from "../components/MyProfile";
 
 const MyDashboard = () => {
-  const { userPost, user } = useContext(AuthContext);
+  const { userPost, user, setUserPost } = useContext(AuthContext);
   const { loading } = useContext(PostContext);
 
   return (
@@ -16,7 +16,7 @@ const MyDashboard = () => {
 
       <MyProfile currentUser={user} currentUserPost={userPost} />
 
-      <FeedPost post={userPost} />
+      <FeedPost post={userPost} setUserPost={setUserPost} />
     </div>
   );
 };

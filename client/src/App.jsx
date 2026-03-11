@@ -1,17 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
-import CreatePost from "./pages/CreatePost";
+import React, { lazy, useContext, useEffect, useState } from "react";
+import { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import UpdatePost from "./pages/UpdatePost";
-import Signup from "./pages/Signup";
-import SignIn from "./pages/SignIn";
-import MyDashboard from "./pages/MyDashboard";
-import Home from "./pages/Home";
 import { AuthContext } from "./context/AuthProvider";
-import UpdateProfilePanel from "./pages/UpdateProfilePanel";
-import UserListPopup from "./components/UserListPopup";
-import UserDashboard from "./pages/UserDashboard";
 import PrivateRoute from "./PrivateRoute";
 import Footer from "./components/Footer";
+const Home = lazy(()=> import("./pages/Home"));
+const CreatePost = lazy(() => import("./pages/CreatePost"));
+const UpdatePost = lazy(() => import("./pages/UpdatePost"));
+const Signup = lazy(() => import("./pages/Signup"));
+const SignIn = lazy(() => import("./pages/SignIn"));
+const MyDashboard = lazy(() => import("./pages/MyDashboard"));
+const UpdateProfilePanel = lazy(() => import("./pages/UpdateProfilePanel"));
+const UserListPopup = lazy(() => import("./components/UserListPopup"));
+const UserDashboard = lazy(() => import("./pages/UserDashboard"));
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -19,13 +20,29 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route
+          path="/signup"
+          element={
+            <Suspense fallback={null}>
+              <Signup />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <Suspense fallback={null}>
+              <SignIn />
+            </Suspense>
+          }
+        />
         <Route
           path="/my-dashboard"
           element={
             <PrivateRoute>
-              <MyDashboard />
+              <Suspense fallback={null}>
+                <MyDashboard />
+              </Suspense>
             </PrivateRoute>
           }
         />
@@ -33,7 +50,9 @@ const App = () => {
           path="/user-dashboard/:id"
           element={
             <PrivateRoute>
-              <UserDashboard />
+              <Suspense fallback={null}>
+                <UserDashboard />
+              </Suspense>
             </PrivateRoute>
           }
         />
@@ -41,21 +60,20 @@ const App = () => {
           path="/update-profile"
           element={
             <PrivateRoute>
-              <UpdateProfilePanel />
+              <Suspense fallback={null}>
+                <UpdateProfilePanel />
+              </Suspense>
             </PrivateRoute>
           }
         />
-        <Route
-          path="/all-users"
-          element={
-            user && <UserListPopup />
-          }
-        />
+        <Route path="/all-users" element={user && <Suspense fallback={null}><UserListPopup /></Suspense>} />
         <Route
           path="/create"
           element={
             <PrivateRoute>
-              <CreatePost />
+              <Suspense fallback={null}>
+                <CreatePost />
+              </Suspense>
             </PrivateRoute>
           }
         />
@@ -63,13 +81,15 @@ const App = () => {
           path="/update/:id"
           element={
             <PrivateRoute>
-              <UpdatePost />
+              <Suspense fallback={null}>
+                <UpdatePost />
+              </Suspense>
             </PrivateRoute>
           }
         />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Suspense fallback={null}><Home /></Suspense>} />
       </Routes>
-      <Footer/>
+      <Footer />
     </>
   );
 };

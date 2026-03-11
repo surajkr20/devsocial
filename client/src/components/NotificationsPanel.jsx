@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import FollowSuggestions from "../components/FollowSuggestions";
+import React, { lazy, Suspense, useContext, useState } from "react";
+const FollowSuggestions = lazy(() => import("../components/FollowSuggestions"));
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 
@@ -70,10 +70,12 @@ const NotificationPanel = ({ notifications, setShowNotificationPopUp }) => {
           </div>
 
           {/* follow suggestions */}
-          <FollowSuggestions
-            UserData={allUsers.slice(0, 3)}
-            setShowNotificationPopUp={setShowNotificationPopUp}
-          />
+          <Suspense fallback={<div>Loading Follow Suggestions components...</div>}>
+            <FollowSuggestions
+              UserData={allUsers.slice(0, 3)}
+              setShowNotificationPopUp={setShowNotificationPopUp}
+            />
+          </Suspense>
         </div>
       </div>
     </>
